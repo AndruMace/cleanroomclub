@@ -22,18 +22,22 @@ export default function Home({session}: {session: Session}) {
   const [postText, setPostText] = useState<string>('');
   const [imagesForUpload, setImagesForUpload] = useState<File[]>([])
   const [previewImages, setPreviewImages] = useState<string[]>([])
-  
+
   const [postImages, setPostImages] = useState<DisplayImages[][]>([])
   const [posts, setPosts] = useState<PostRow[]>([])
 
+  const [page, setPage] = useState<number>(1)
+  // const [pageRange, setPageRange] = useState<number>(10)
+
   useEffect(() => {
-    // GET POSTS
-    async function getPosts() {
+    // GET INITIAL POSTS
+    async function getInitialPosts() {
       const { data, error } = await supabase
       .from('posts')
       .select(`*`)
       .eq('user_id', user.id)
       .order('post_date', {ascending: false})
+      .range(0, 4)
 
       if (error) {
         console.error(error)
@@ -43,8 +47,38 @@ export default function Home({session}: {session: Session}) {
       }
     }
 
-    getPosts()
+    getInitialPosts()
   }, [])
+
+  useEffect(() => {
+    // PAGINATE
+    async function getPagePosts() {
+
+      const startOfRange = ((page-1) * 10) / 2
+      // p1 = 0,4
+      // p2 = 5,9
+      // p3 = 10,14
+      // p4 = 15,19
+      // p5 = 20, 24
+      // ...etc
+
+      const { data, error } = await supabase
+      .from('posts')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('post_date', {ascending: false})
+      .range(startOfRange, startOfRange + 4)
+
+      if (error) {
+        console.error(error)
+        throw error
+      } else if (data) {
+        setPosts(data)        
+      }
+    }
+
+    getPagePosts()
+  }, [page])
 
   useEffect(() => {
     // GET IMAGES
@@ -140,24 +174,6 @@ export default function Home({session}: {session: Session}) {
     return filePath
   }
 
-  async function getNewPost() {
-    console.log(JSON.stringify(user))
-    const { data, error } = await supabase
-    .from('posts')
-    .select(`*`)
-    .eq('user_id', user.id)
-    .order('post_date', {ascending: false})
-    .limit(1)
-    // .limit(imagesForUpload.length)
-    
-    if (error) {
-      console.error(error)
-      throw error
-    } else if (data) {
-      setPosts((prevPosts) => [...prevPosts, data[0]])        
-    }
-  }
-
   async function createImageRecord(path: string, post_id: string): Promise<string> {
     const imagesForUpload = {
       post_id,
@@ -179,7 +195,6 @@ export default function Home({session}: {session: Session}) {
       //   post_id uuid not null,
       user_id,
       text_content: postText,
-      //   post_date timestamp without time zone not null default current_timestamp,
       //   title text null,
     }
 
@@ -190,18 +205,6 @@ export default function Home({session}: {session: Session}) {
     return data
   }
 
-  // async function updatePostRecord(post: any, image_id: string) {
-  //   const updates = {
-  //     ...post,
-  //     image_id
-  //   }
-
-  //   const { error } = await supabase.from('posts').upsert(updates)
-
-  //   if (error) throw error
-
-  // }
-
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
 
@@ -211,20 +214,13 @@ export default function Home({session}: {session: Session}) {
       }
 
       setUploading(true)
-      
-      // const filePath = await toS3(imagesForUpload)
-      console.log(`imagesForUpload length ::  ${imagesForUpload.length}`)
-      console.log(`imagesForUpload :: ${JSON.stringify(imagesForUpload)}`)
+
       const filePaths = await Promise.all(imagesForUpload.map(async (img) => await toS3(img)))
-
       const post = await createPostRecord(user.id)
-
-      // const image_id = await createImageRecord(filePath, post.post_id)
       await Promise.all(filePaths.map(async (path) => await createImageRecord(path, post.post_id)))
-      // const image_ids = await Promise.all(filePaths.map(async (path) => await createImageRecord(path, post.post_id)))
 
-      // await updatePostRecord(post, image_ids)
-      await getNewPost()
+      // TODO more efficient method of populating new post
+      window.location.reload()
 
     } catch(error: any) {
       console.error(error.message)
@@ -265,10 +261,10 @@ export default function Home({session}: {session: Session}) {
           </div>
         ))}
       </div>
+      <div className="flex justify-around">
+        {page > 1 ? <button onClick={() => setPage(currPage => currPage - 1)}className="bg-emerald-200 text-emerald-800 rounded-md w-1/4 p-2 mx-auto my-3 hover:bg-emerald-500 hover:shadow-xl">Prev</button>: null}
+        <button onClick={() => setPage(currPage => currPage + 1)} className="bg-emerald-200 text-emerald-800 rounded-md w-1/4 p-2 mx-auto my-3 hover:bg-emerald-500 hover:shadow-xl">Next</button>
+      </div>
     </>
   )
 }
-
-// function Post({post}: {post:}) {
-
-// }
