@@ -5,14 +5,17 @@ import Auth from './components/Auth'
 import Account from './components/Account'
 import Home from './components/Home'
 import { Session } from '@supabase/supabase-js'
-import { Link, Route, useRoute } from 'wouter'
+import { Link, Route, useRoute, useLocation } from 'wouter'
 import { navigate } from 'wouter/use-location'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faBed } from '@fortawesome/free-solid-svg-icons/faBed'
+import Landing from './components/Landing'
 
 function NavLink({href, children}: {href: string, children: any}) {
   const [isActive] = useRoute(href)
 
   return (
-    <div className={`w-full h-full text-center p-4 ${isActive ? 'bg-emerald-600' : 'hover:bg-emerald-500'}` } onClick={() => navigate(href)}    >
+    <div className={`transition duration-300 w-full h-full text-center p-4 ${isActive ? 'bg-emerald-600' : 'hover:bg-emerald-500'}` } onClick={() => navigate(href)}    >
       <Link href={href}>
         <a className="link">{children}</a>
       </Link>
@@ -22,6 +25,7 @@ function NavLink({href, children}: {href: string, children: any}) {
 
 function App() {
   const [session, setSession] = useState<Session | null>(null)
+  const [location, setLocation] = useLocation()
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
@@ -34,8 +38,9 @@ function App() {
   }, [])
 
   if (session) return (
-    <div className='bg-emerald-400 font-sans subpixel-antialiased h-screen'>
+    <div className='bg-emerald-400 font-sans subpixel-antialiase'>
       <nav className='flex justify-around shadow-md'>
+        <FontAwesomeIcon onClick={() => setLocation('/')} icon={faBed} className='transition duration-300 m-1 px-2 py-3 rounded-full border-emerald-800 bg-emerald-300 hover:bg-emerald-500' size='lg'/>
         <NavLink href="/me">Profile</NavLink>
         <NavLink href="/home">Home</NavLink>
         <NavLink href="/community">Community</NavLink>
@@ -45,14 +50,22 @@ function App() {
         <Account key={session.user.id} session={session} />
       </Route>
       <Route path="/home">
-        <Home key={session.user.id} session={session}></Home>
+        <Home key={session.user.id} session={session}/>
+      </Route>
+      <Route path="/">
+        <Landing/>
       </Route>
     </div>
   )
 
   return (
-    <div className="container" style={{ padding: '50px 0 100px 0' }}>
-      <Auth />
+    <div>
+      <Route path="/auth">
+        <Auth/>
+      </Route>
+      <Route path="/">
+        <Landing/>
+      </Route>
     </div>
   )
 }

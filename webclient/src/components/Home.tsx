@@ -3,6 +3,7 @@ import { supabase } from "../supabaseClient"
 import { Session, User } from "@supabase/supabase-js";
 import { FileUploader } from "./FileUploader";
 import { Tables } from '../../supabase.types'
+import Post from "./Posts/Post";
 
 type PostRow = Tables<'posts'>
 type ImageRow = Tables<'images'>
@@ -23,7 +24,7 @@ export default function Home({session}: {session: Session}) {
   const [imagesForUpload, setImagesForUpload] = useState<File[]>([])
   const [previewImages, setPreviewImages] = useState<string[]>([])
 
-  const [postImages, setPostImages] = useState<DisplayImages[][]>([])
+  const [allPostImages, setAllPostImages] = useState<DisplayImages[][]>([])
   const [posts, setPosts] = useState<PostRow[]>([])
 
   const [page, setPage] = useState<number>(1)
@@ -131,7 +132,7 @@ export default function Home({session}: {session: Session}) {
         })
         Promise.all(updatedFilteredResults)
         .then((resolved) => {
-          setPostImages(resolved)
+          setAllPostImages(resolved)
         })
         .catch(error => {
           console.error(error)
@@ -209,7 +210,7 @@ export default function Home({session}: {session: Session}) {
     event.preventDefault()
 
     try {
-      if (!imagesForUpload) {
+      if (!imagesForUpload || imagesForUpload.length < 1) {
         throw new Error('You must select an image to upload.')
       }
 
@@ -237,12 +238,12 @@ export default function Home({session}: {session: Session}) {
   return (
     <>
     <div className="flex justify-center p-6">
-      <form onSubmit={handleSubmit} className="flex flex-col w-full content-center border-emerald-700 border-solid border-2 rounded-md p-5">
+      <form onSubmit={handleSubmit} className="flex flex-col w-full content-center border-emerald-700 border-solid border-4 rounded-lg p-4 md:w-1/2 lg:w-1/2">
         <h2 className="text-center underline pb-2">Create a New Post</h2>
         <textarea
           value={postText}
           onChange={handleTextChange}
-          placeholder="What's on your mind?"
+          placeholder="If your room clean?"
           className="block p-2.5 w-full text-sm text-gray-900 bg-emerald-100 rounded-lg border border-gray-300 focus:border-emerald-800 focus:ring-emerald-800 focus:outline-none"
         />
         <FileUploader handleFiles={handleImageChange}/>
@@ -250,20 +251,14 @@ export default function Home({session}: {session: Session}) {
         <button type="submit" className="bg-emerald-200 text-emerald-800 rounded-md w-1/2 p-2 mx-auto my-3 hover:bg-emerald-500 hover:shadow-xl">{!uploading ? 'Post' : 'Uploading...'}</button>
       </form>
     </div>
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 justify-items-center">
-          {posts.map((post, i) => (
-          <div key={`${i}_${post?.post_id}`}>
-            <h3>{post.post_date ?? ''}</h3>
-            <p>{post.text_content ?? ''}</p>
-            {postImages.filter((postImages) => postImages[0].pid === post.post_id ).map((postImages) => (
-              !downloading ? postImages.map((img) => <img src={img.url ?? ''} alt="" key={`${img.iid}`} className="h-auto w-40 rounded-md"/>) : <p key={`${post.post_id}`}>Loading...</p>
-            ))}
-          </div>
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 justify-items-center">
+          {posts.map((post) => (
+            !downloading ? <Post post={post} allPostImages={allPostImages} key={post.post_id}/> : <p key={`${post.post_id}`}>Loading...</p>
         ))}
       </div>
       <div className="flex justify-around">
         {page > 1 ? <button onClick={() => setPage(currPage => currPage - 1)}className="bg-emerald-200 text-emerald-800 rounded-md w-1/4 p-2 mx-auto my-3 hover:bg-emerald-500 hover:shadow-xl">Prev</button>: null}
-        <button onClick={() => setPage(currPage => currPage + 1)} className="bg-emerald-200 text-emerald-800 rounded-md w-1/4 p-2 mx-auto my-3 hover:bg-emerald-500 hover:shadow-xl">Next</button>
+        <button onClick={() => setPage(currPage => currPage + 1)} className="bg-emerald-200 text-emerald-800 rounded-md w-1/4 p-2 mx-auto my-3 hover:bg-emerald-500 hover:shadow-xl mb-12">Next</button>
       </div>
     </>
   )

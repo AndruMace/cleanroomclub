@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
 import { supabase } from '../supabaseClient'
 import { Session } from '@supabase/supabase-js'
-import Avatar from './Avatar'
+import useLocation from 'wouter/use-location';
 
 export default function Account({ session }: { session: Session }) {
   const [loading, setLoading] = useState<boolean>(true)
   const [username, setUsername] = useState<string | null>(null)
   const [website, setWebsite] = useState<string | null>(null)
   const [avatar_url, setAvatarUrl] = useState<string | null>(null)
+  const [location, setLocation] = useLocation();
 
   useEffect(() => {
     let ignore = false
@@ -41,6 +42,11 @@ export default function Account({ session }: { session: Session }) {
     }
   }, [session])
 
+  function handleLogout() {
+    supabase.auth.signOut()
+    setLocation('/')
+  }
+
   async function updateProfile(event: any, avatarUrl: string) {
     event.preventDefault()
 
@@ -65,31 +71,24 @@ export default function Account({ session }: { session: Session }) {
   }
 
   return (
-    <form onSubmit={updateProfile} className="form-widget">
+    <form onSubmit={updateProfile} className="w-screen h-screen flex flex-col align-middle justify-center justify-items-center text-center">
+      <h1>My Info</h1>
       <div>
-        <label htmlFor="email">Email</label>
-        <input id="email" type="text" value={session.user.email} disabled />
+        <label htmlFor="email">Email: </label>
+        <input id="email" type="text" className='rounded-md p-1 m-2' value={session.user.email} disabled />
       </div>
       <div>
-        <label htmlFor="username">Name</label>
+        <label htmlFor="username">Name: </label>
         <input
           id="username"
+          className='rounded-md p-1 m-2'
           type="text"
           required
           value={username || ''}
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
-      <div>
-        <label htmlFor="website">Website</label>
-        <input
-          id="website"
-          type="url"
-          value={website || ''}
-          onChange={(e) => setWebsite(e.target.value)}
-        />
-      </div>
-      <div>
+      {/* <div>
         <label>Avatar</label>
         <Avatar
           id="avatar"
@@ -99,15 +98,15 @@ export default function Account({ session }: { session: Session }) {
             updateProfile(event, url)
           }}
         />
-      </div>
-      <div>
-        <button className="button block primary" type="submit" disabled={loading}>
+      </div> */}
+      <div className='flex justify-center'>
+        <button className="bg-emerald-200 text-emerald-800 rounded-md w-1/2 p-2 mx-auto my-3 hover:bg-emerald-500 hover:shadow-xl" type="submit" disabled={loading}>
           {loading ? 'Loading ...' : 'Update'}
         </button>
       </div>
 
-      <div>
-        <button className="button block" type="button" onClick={() => supabase.auth.signOut()}>
+      <div className='flex justify-center'>
+        <button className="bg-emerald-200 text-emerald-800 rounded-md w-1/2 p-2 mx-auto my-3 hover:bg-emerald-500 hover:shadow-xl" type="button" onClick={handleLogout}>
           Sign Out
         </button>
       </div>
