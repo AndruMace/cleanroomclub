@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { supabase } from '../supabaseClient'
+import { supabase } from '../../supabaseClient'
 import { Session } from '@supabase/supabase-js'
 import useLocation from 'wouter/use-location';
 

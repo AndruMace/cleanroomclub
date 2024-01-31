@@ -1,8 +1,8 @@
 import './App.css'
 import { useState, useEffect } from 'react'
 import { supabase } from './supabaseClient'
-import Auth from './components/Auth'
-import Account from './components/Account'
+import Auth from './components/User/Auth'
+import Account from './components/User/Account'
 import Home from './components/Home'
 import { Session } from '@supabase/supabase-js'
 import { Link, Route, useRoute, useLocation } from 'wouter'
@@ -10,6 +10,7 @@ import { navigate } from 'wouter/use-location'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBed } from '@fortawesome/free-solid-svg-icons/faBed'
 import Landing from './components/Landing'
+import Community from './components/Community'
 
 function NavLink({href, children}: {href: string, children: any}) {
   const [isActive] = useRoute(href)
@@ -52,8 +53,11 @@ function App() {
       <Route path="/home">
         <Home key={session.user.id} session={session}/>
       </Route>
+      <Route path="/community">
+        <Community key={session.user.id}/>
+      </Route>
       <Route path="/">
-        <Landing/>
+        <Landing loggedin={true}/>
       </Route>
     </div>
   )
@@ -64,7 +68,7 @@ function App() {
         <Auth/>
       </Route>
       <Route path="/">
-        <Landing/>
+        <Landing loggedin={false}/>
       </Route>
     </div>
   )

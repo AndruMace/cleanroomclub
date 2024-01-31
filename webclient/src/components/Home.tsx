@@ -243,7 +243,7 @@ export default function Home({session}: {session: Session}) {
         <textarea
           value={postText}
           onChange={handleTextChange}
-          placeholder="If your room clean?"
+          placeholder="Is your room clean?"
           className="block p-2.5 w-full text-sm text-gray-900 bg-emerald-100 rounded-lg border border-gray-300 focus:border-emerald-800 focus:ring-emerald-800 focus:outline-none"
         />
         <FileUploader handleFiles={handleImageChange}/>
@@ -258,7 +258,7 @@ export default function Home({session}: {session: Session}) {
       </div>
       <div className="flex justify-around">
         {page > 1 ? <button onClick={() => setPage(currPage => currPage - 1)}className="bg-emerald-200 text-emerald-800 rounded-md w-1/4 p-2 mx-auto my-3 hover:bg-emerald-500 hover:shadow-xl">Prev</button>: null}
-        <button onClick={() => setPage(currPage => currPage + 1)} className="bg-emerald-200 text-emerald-800 rounded-md w-1/4 p-2 mx-auto my-3 hover:bg-emerald-500 hover:shadow-xl mb-12">Next</button>
+        {posts.length < 5 ? null : <button onClick={() => setPage(currPage => currPage + 1)} className="bg-emerald-200 text-emerald-800 rounded-md w-1/4 p-2 mx-auto my-3 hover:bg-emerald-500 hover:shadow-xl mb-12">Next</button>}
       </div>
     </>
   )
