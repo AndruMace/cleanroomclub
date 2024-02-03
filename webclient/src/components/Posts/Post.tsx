@@ -9,7 +9,7 @@ interface DisplayImages {
 
 type PostRow = Tables<'posts'>
 
-export default function Post({post, allPostImages, profilePic}: {post: PostRow, allPostImages: DisplayImages[][], profilePic: string | undefined}) {
+export default function Post({post, allPostImages, profilePic}: {post: PostRow, allPostImages: DisplayImages[][], profilePic?: string}) {
   const [showAll, setShowAll] = useState<boolean>(false)
 
   const filteredPIs = allPostImages.filter((postImages) => postImages[0].pid === post.post_id)

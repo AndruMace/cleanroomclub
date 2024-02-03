@@ -8,7 +8,7 @@ export default function Account({ session }: { session: Session }) {
   const [username, setUsername] = useState<string | null>(null)
   const [website, setWebsite] = useState<string | null>(null)
   const [avatar_url, setAvatarUrl] = useState<string | null>(null)
-  const [location, setLocation] = useLocation();
+  const [_location, setLocation] = useLocation();
 
   useEffect(() => {
     let ignore = false

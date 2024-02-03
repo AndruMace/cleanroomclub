@@ -1,17 +1,11 @@
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef } from "react"
 import { supabase } from "../supabaseClient"
 import { Session, User } from "@supabase/supabase-js";
 import { FileUploader } from "./FileUploader";
-import { Tables } from '../../supabase.types'
 import Post from "./Posts/Post";
-
-type PostRow = Tables<'posts'>
-type ImageRow = Tables<'images'>
-interface DisplayImages {
-  pid: string,
-  url: string
-  iid: string
-}
+import usePosts from "./hooks/usePosts";
+import useImages from "./hooks/useImages";
+// import usePosts from "./hooks/usePosts";
 
 export default function Home({session}: {session: Session}) {
 
@@ -19,133 +13,14 @@ export default function Home({session}: {session: Session}) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   
   const [uploading, setUploading] = useState<boolean>(false)
-  const [downloading, setDownloading] = useState<boolean>(false)
   const [postText, setPostText] = useState<string>('');
   const [imagesForUpload, setImagesForUpload] = useState<File[]>([])
   const [previewImages, setPreviewImages] = useState<string[]>([])
 
-  const [allPostImages, setAllPostImages] = useState<DisplayImages[][]>([])
-  const [posts, setPosts] = useState<PostRow[]>([])
-
   const [page, setPage] = useState<number>(1)
-  // const [pageRange, setPageRange] = useState<number>(10)
 
-  useEffect(() => {
-    // GET INITIAL POSTS
-    async function getInitialPosts() {
-      const { data, error } = await supabase
-      .from('posts')
-      .select(`*`)
-      .eq('user_id', user.id)
-      .order('post_date', {ascending: false})
-      .range(0, 4)
-
-      if (error) {
-        console.error(error)
-        throw error
-      } else if (data) {
-        setPosts(data)        
-      }
-    }
-
-    getInitialPosts()
-  }, [])
-
-  useEffect(() => {
-    // PAGINATE
-    async function getPagePosts() {
-
-      const startOfRange = ((page-1) * 10) / 2
-      // p1 = 0,4
-      // p2 = 5,9
-      // p3 = 10,14
-      // p4 = 15,19
-      // p5 = 20, 24
-      // ...etc
-
-      const { data, error } = await supabase
-      .from('posts')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('post_date', {ascending: false})
-      .range(startOfRange, startOfRange + 4)
-
-      if (error) {
-        console.error(error)
-        throw error
-      } else if (data) {
-        setPosts(data)        
-      }
-    }
-
-    getPagePosts()
-  }, [page])
-
-  useEffect(() => {
-    // GET IMAGES
-    async function downloadImages(images: any[]): Promise<any> {
-      setDownloading(true);
-    
-      try {
-        const downloadPromises = images.map(async (image) => {
-          const { data, error } = await supabase.storage.from('postimages').download(image.url);
-          if (error) {
-            throw error;
-          }
-          return {url: URL.createObjectURL(data), pid: image.pid, iid: image.iid};
-        });
-    
-        const urls = await Promise.all(downloadPromises);
-    
-        setDownloading(false);
-        return urls;
-      } catch (error: any) {
-        setDownloading(false);
-        console.log('Error downloading images: ', error.message);
-        return []
-      }
-    }
-
-    async function getPostImages() {
-      const pids: Array<string> = posts.map(post => post.post_id)
-
-      let imagesArr = pids.map(async (pid) => {
-        const { data, error } = await supabase
-        .from('images')
-        .select('*')
-        .eq('post_id', pid)
-        
-        if (error) {
-          console.error(error)
-          // throw error
-        } else if (data) {
-          return data
-        }
-      })
-
-      Promise.all(imagesArr)
-      .then(results => {
-        const filteredResults: Array<any> = results.filter((img) => img && img.length > 0)
-        const updatedFilteredResults: Array<any> = filteredResults.map(async (postImgs) => {
-          const newUrls: string[] = await downloadImages(postImgs.map((pI: ImageRow) => ({pid: pI.post_id, url: pI.image_url, iid: pI.image_id})))
-          return newUrls
-        })
-        Promise.all(updatedFilteredResults)
-        .then((resolved) => {
-          setAllPostImages(resolved)
-        })
-        .catch(error => {
-          console.error(error)
-        })
-      })
-      .catch(error => {
-        console.error("An error occurred:", error);
-        throw error
-      });
-    }
-
-    getPostImages()
-  }, [posts])
+  const posts = usePosts(user.id, page)
+  const {allPostImages, downloading} =useImages(posts)
 
   function handleTextChange(event: any) {
     setPostText(event.target.value);

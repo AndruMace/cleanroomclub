@@ -26,7 +26,7 @@ function NavLink({href, children}: {href: string, children: any}) {
 
 function App() {
   const [session, setSession] = useState<Session | null>(null)
-  const [location, setLocation] = useLocation()
+  const [_location, setLocation] = useLocation()
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {
