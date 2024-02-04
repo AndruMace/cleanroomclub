@@ -72,6 +72,7 @@ export default function Home({session}: {session: Session}) {
       user_id,
       text_content: postText,
       //   title text null,
+      post_date:'2024-02-19 13:00:00.000000' 
     }
 
     const { data, error } = await supabase.from('posts').insert(post).select().single()
@@ -112,23 +113,38 @@ export default function Home({session}: {session: Session}) {
 
   return (
     <>
-    <div className="flex justify-center p-6">
-      <form onSubmit={handleSubmit} className="flex flex-col w-full content-center border-emerald-700 border-solid border-4 rounded-lg p-4 md:w-1/2 lg:w-1/2">
-        <h2 className="text-center underline pb-2">Create a New Post</h2>
-        <textarea
-          value={postText}
-          onChange={handleTextChange}
-          placeholder="Is your room clean?"
-          className="block p-2.5 w-full text-sm text-gray-900 bg-emerald-100 rounded-lg border border-gray-300 focus:border-emerald-800 focus:ring-emerald-800 focus:outline-none"
-        />
-        <FileUploader handleFiles={handleImageChange}/>
-        {previewImages.map((imgUrl) => <img src={imgUrl} key={imgUrl} alt="" className="h-auto w-56"/>)}
-        <button type="submit" className="bg-emerald-200 text-emerald-800 rounded-md w-1/2 p-2 mx-auto my-3 hover:bg-emerald-500 hover:shadow-xl">{!uploading ? 'Post' : 'Uploading...'}</button>
-      </form>
+<div className="flex justify-center p-6">
+  <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-md content-center bg-white border-2 border-emerald-500 rounded-lg shadow-lg p-6">
+    <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-emerald-800 text-center mb-4">Create a New Post</h2>
+    <textarea
+      value={postText}
+      onChange={handleTextChange}
+      placeholder="Is your room clean?"
+      rows={1}
+      className="p-3 w-full text-sm text-gray-900 bg-emerald-50 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition ease-in-out duration-300"
+    />
+    <div className="my-4">
+    <div className="flex justify-center my-4">
+      <FileUploader handleFiles={handleImageChange} />
     </div>
+      <div className="flex flex-wrap justify-center gap-2 mt-2">
+        {previewImages.map((imgUrl) => (
+          <img src={imgUrl} key={imgUrl} alt="Preview" className="h-auto max-w-xs rounded-md shadow" />
+        ))}
+      </div>
+    </div>
+    <button
+      type="submit"
+      className="mt-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-lg shadow focus:outline-none focus:shadow-outline transition ease-in-out duration-300 w-full"
+    >
+      {!uploading ? 'Post' : 'Uploading...'}
+    </button>
+  </form>
+</div>
+
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 justify-items-center">
           {posts.map((post) => (
-            !downloading ? <Post post={post} allPostImages={allPostImages} key={post.post_id}/> : <p key={`${post.post_id}`}>Loading...</p>
+            !downloading ? <Post post={post} allPostImages={allPostImages} key={post.post_id} uid={user.id} /> : <p key={`${post.post_id}`}>Loading...</p>
         ))}
       </div>
       <div className="flex justify-around">

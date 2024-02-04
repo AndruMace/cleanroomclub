@@ -73,7 +73,7 @@ export interface Database {
           upload_date: string
         }
         Insert: {
-          image_id: string
+          image_id?: string
           image_url: string
           metadata?: Json | null
           post_id: string
@@ -144,7 +144,7 @@ export interface Database {
         }
         Insert: {
           post_date?: string
-          post_id: string
+          post_id?: string
           text_content?: string | null
           title?: string | null
           user_id: string
@@ -171,6 +171,7 @@ export interface Database {
           avatar_url: string | null
           full_name: string | null
           id: string
+          streak: number | null
           updated_at: string | null
           username: string | null
           website: string | null
@@ -179,6 +180,7 @@ export interface Database {
           avatar_url?: string | null
           full_name?: string | null
           id: string
+          streak?: number | null
           updated_at?: string | null
           username?: string | null
           website?: string | null
@@ -187,6 +189,7 @@ export interface Database {
           avatar_url?: string | null
           full_name?: string | null
           id?: string
+          streak?: number | null
           updated_at?: string | null
           username?: string | null
           website?: string | null
@@ -209,6 +212,12 @@ export interface Database {
       delete_avatar: {
         Args: {
           avatar_url: string
+        }
+        Returns: Record<string, unknown>
+      }
+      delete_postimage: {
+        Args: {
+          image_url: string
         }
         Returns: Record<string, unknown>
       }
