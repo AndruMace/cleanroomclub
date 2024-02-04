@@ -72,7 +72,7 @@ export default function Home({session}: {session: Session}) {
       user_id,
       text_content: postText,
       //   title text null,
-      post_date:'2024-02-19 13:00:00.000000' 
+      post_date:'2024-02-05 14:20:00.000000' 
     }
 
     const { data, error } = await supabase.from('posts').insert(post).select().single()
