@@ -1,5 +1,3 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCamera, faUsers } from '@fortawesome/free-solid-svg-icons';
 import useLocation from 'wouter/use-location';
 
 export default function LandingPage({loggedin}: {loggedin: boolean | undefined}) {
