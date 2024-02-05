@@ -12,28 +12,49 @@ export default function LandingPage({loggedin}: {loggedin: boolean | undefined})
       <h1 className="text-4xl font-bold m-6" style={{textShadow: 'rgba(10, 10, 10, 1) 1px 1px 3px'}}>Welcome to the <span className='text-emerald-100'>Clean Room Club</span>!</h1>
       <p className="text-lg m-8" style={{textShadow: 'rgba(10, 10, 10, 1) 1px 1px 4px'}}>Step into a world of <strong>cleanliness</strong> and <strong>accountability</strong>.</p>
       
+
+      <section className="mb-8 p-4 max-w-prose bg-emerald-50 shadow-md rounded-lg">
+        <h2 className="text-lg text-emerald-800 font-bold mb-4">Join the Movement</h2>
+        <p className="text-sm text-gray-600">
+          Joining the Clean Room Club is your first step towards embracing a lifestyle that prioritizes mental wellness through cleanliness. A tidy environment is a cornerstone of mental clarity, reducing stress and fostering a sense of achievement and calm.
+        </p>
+        <ul className="list-disc pl-5 mt-2 text-sm text-gray-600">
+          <li>
+            <strong>Mental Clarity:</strong> Engage in an act of self-care that clears your space and your mind.
+          </li>
+          <li className="mt-2">
+            <strong>Stress Reduction:</strong> Discover the peace of mind that comes from a clutter-free environment.
+          </li>
+          <li className="mt-2">
+            <strong>Sense of Achievement:</strong> Feel a profound sense of accomplishment through regular tidying.
+          </li>
+        </ul>
+      </section>
+
+
       <button onClick={handleJoinClick} className="hover:scale-110 bg-gradient-to-r from-emerald-700 to-emerald-500 text-white py-3 px-8 rounded-full mb-8 hover:bg-emerald-600 transition-transform duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-emerald-600 focus:ring-opacity-50 shadow-lg text-lg font-semibold border-2 border-emerald-300 hover:border-emerald-400">
         Join the Club
       </button>
 
 
       <section className="mb-8 p-4 max-w-prose bg-green-50 shadow-md rounded-lg">
-        <h2 className="text-lg text-emerald-800 font-bold mb-4">How It Works</h2>
+        <h2 className="text-lg text-emerald-800 font-bold mb-4">How It Works?</h2>
         <p className="text-sm text-gray-600">
-          At Clean Room Club, we understand that a clean environment is not just about aesthetics; it’s about fostering a sense of peace, accomplishment, and mental well-being.
+          The Clean Room Club champions the link between cleanliness and mental wellness. Here’s how you can engage:
         </p>
         <ul className="list-disc pl-5 mt-2 text-sm text-gray-600">
           <li>
-            <strong>Upload Your Clean Room Photos:</strong> After organizing your space, capture the calm and order you've created. This simple act can inspire others to find their own peace through cleanliness, reinforcing the connection between a clutter-free space and a serene mind.
+            <strong>Share Photos:</strong> Inspire by uploading images of your organized space.
           </li>
-          <li className="mt-2">
-            <strong>Explore for Inspiration:</strong> Delve into a collection of clean rooms from around the world. Let these images ignite your creativity and motivate you to cultivate a haven of your own, knowing that each clean space contributes to a clearer, more peaceful mind.
+          <li>
+            <strong>Find Inspiration:</strong> Browse clean rooms globally for motivation.
           </li>
-          <li className="mt-2">
-            <strong>Build a Habit:</strong> Regular engagement with this positive cycle promotes a habit of mindfulness and self-care, reinforcing the link between physical space and mental health.
+          <li>
+            <strong>Cultivate Habit:</strong> Foster mindfulness and self-care through regular participation.
           </li>
         </ul>
       </section>
+
       <div className="mx-4">
         <div className="flex items-center mb-12">
           <div className="mr-4">
