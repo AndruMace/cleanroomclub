@@ -39,7 +39,7 @@ function App() {
   if (session) return (
     <div className='bg-emerald-400 font-sans subpixel-antialiase min-h-screen'>
       <nav className='flex justify-center shadow-md'>
-        <div onClick={() => setLocation('/')} className="transition ease-in-out duration-300 m-1 px-3 rounded-full hover:bg-emerald-500 hover:scale-110 shadow-md hover:shadow-lg cursor-pointer flex justify-center items-center">
+        <NavLink href="/">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
             width="36" 
@@ -50,7 +50,8 @@ function App() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m12.223 11.641-.223.22-.224-.22a2.224 2.224 0 0 0-3.125 0 2.13 2.13 0 0 0 0 3.07L12 18l3.349-3.289a2.13 2.13 0 0 0 0-3.07 2.225 2.225 0 0 0-3.126 0z"></path>
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="m21.707 11.293-9-9a.999.999 0 0 0-1.414 0l-9 9A1 1 0 0 0 3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1 1 0 0 0 .707-1.707zM18.001 20H6v-9.585l6-6 6 6V15l.001 5z"></path>
           </svg>
-        </div>
+        </NavLink>
+
         <NavLink href="/me">
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="36" viewBox="0 0 24 24" style={{fill: 'rgba(0, 0, 0, 1)'}}><path d="M4 13h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1zm-1 7a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v4zm10 0a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-7a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v7zm1-10h6a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1h-6a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1z"></path></svg>
         </NavLink>

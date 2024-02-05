@@ -12,7 +12,7 @@ export default function LandingPage({loggedin}: {loggedin: boolean | undefined})
       <h1 className="text-4xl font-bold m-6" style={{textShadow: 'rgba(10, 10, 10, 1) 1px 1px 3px'}}>Welcome to the <span className='text-emerald-100'>Clean Room Club</span>!</h1>      
 
       <div className="flex items-center justify-center mb-24 max-w-prose flex-col">
-          <section className="mb-0 p-6 max-w-lg text-center"><p className="text-2xl font-bold text-white">Enhance mental wellness through cleanliness, achieving mental clarity, stress reduction, and a sense of accomplishment.</p></section>
+          <section className="mb-0 p-6 max-w-xl text-center"><p className="text-2xl font-bold text-white">Enhance mental wellness through cleanliness. Achieving mental clarity, stress reduction, and accomplishment.</p></section>
           <button onClick={handleJoinClick} className="rounded-full border-2 border-emerald-300 bg-gradient-to-r from-emerald-700 to-emerald-500 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-110 hover:border-emerald-400 hover:bg-emerald-600 focus:outline-none focus:ring-4 focus:ring-emerald-600 focus:ring-opacity-50">Join the Club</button>
       </div>
 
