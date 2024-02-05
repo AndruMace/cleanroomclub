@@ -13,7 +13,7 @@ export default function LandingPage({loggedin}: {loggedin: boolean | undefined})
 
       <div className="flex items-center justify-center mb-24 max-w-prose flex-col">
           <section className="mb-0 p-6 max-w-lg text-center"><p className="text-2xl font-bold text-white">Enhance mental wellness through cleanliness, achieving mental clarity, stress reduction, and a sense of accomplishment.</p></section>
-          <button className="rounded-full border-2 border-emerald-300 bg-gradient-to-r from-emerald-700 to-emerald-500 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-110 hover:border-emerald-400 hover:bg-emerald-600 focus:outline-none focus:ring-4 focus:ring-emerald-600 focus:ring-opacity-50">Join the Club</button>
+          <button onClick={handleJoinClick} className="rounded-full border-2 border-emerald-300 bg-gradient-to-r from-emerald-700 to-emerald-500 px-8 py-3 text-lg font-semibold text-white shadow-lg transition-transform duration-300 ease-in-out hover:scale-110 hover:border-emerald-400 hover:bg-emerald-600 focus:outline-none focus:ring-4 focus:ring-emerald-600 focus:ring-opacity-50">Join the Club</button>
       </div>
 
       <section className="mx-4 shadow-lg rounded-lg p-4 mb-12" style={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>
