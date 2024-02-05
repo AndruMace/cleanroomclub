@@ -43,11 +43,12 @@ export default function DayStreakTracker({streak}: {streak: number}) {
   
   return (
     <div className="flex items-center flex-col justify-center p-4 bg-emerald-200 shadow-md rounded-lg my-4">
-      <h2 className="text-2xl text-emerald-800 font-bold" style={{textShadow: 'green 0px 0px 2px'}}>
+      <h2 className="text-2xl text-emerald-300 font-bold" style={{textShadow: 'green 0px 0px 2px'}}>
         <span className="text-emerald-800">Day Streak 🔥:</span>{' '}
         <span className="text-emerald-900">{streak}</span>
       </h2>
-      <h3 className="text-xl text-emerald-800 font-bold" style={{textShadow: 'green 0px 0px 1px'}}>Next Goal: {nextGoal}</h3>
+      <br/>
+      <h3 className="text-xl text-emerald-800 font-bold" style={{textShadow: 'green 0px 0px 2px'}}>Next Goal: {nextGoal}</h3>
       <h3 className="text-md text-emerald-800" style={{textShadow: 'green 0px 0px 1px'}}>{nextGoalMessage}</h3>
 
       {GOAL_DAYS.includes(streak) ? <>🎉 Congrats for hitting your streak! On to the next!</> : null}

@@ -75,7 +75,7 @@ export default function Dashboard({ session }: { session: Session }) {
 
   return (
     <div className="flex flex-col items-center justify-center w-screen h-screen p-4">
-      <section className="mb-8 p-4 max-w-prose bg-white shadow-md rounded-lg">
+      <section className="mb-8 p-4 max-w-prose bg-emerald-50 shadow-md rounded-lg">
         <h2 className="text-lg text-emerald-800 font-bold mb-4">Welcome to the Clean Room Club</h2>
         <p className="text-sm text-gray-600 mt-2">
           Thank you for joining Clean Room Club, where every clean room is a step toward a more organized, peaceful life. Together, we’re not just cleaning our spaces—we’re building a community that celebrates the beauty of simplicity and the power of habit.
