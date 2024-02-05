@@ -14,9 +14,10 @@ export default function LandingPage({loggedin}: {loggedin: boolean | undefined})
       <h1 className="text-4xl font-bold m-6" style={{textShadow: 'rgba(10, 10, 10, 1) 1px 1px 3px'}}>Welcome to the <span className='text-emerald-100'>Clean Room Club</span>!</h1>
       <p className="text-lg m-8" style={{textShadow: 'rgba(10, 10, 10, 1) 2px 2px 2px'}}>Step into a world of <strong>cleanliness</strong> and <strong>accountability</strong>.</p>
       
-      <button onClick={handleJoinClick} className="hover:scale-105 bg-emerald-700 text-white py-3 px-8 rounded-full mb-8 hover:bg-emerald-500 transition duration-300 focus:outline-none focus:ring focus:border-emerald-600 border-emerald-300 border">
+      <button onClick={handleJoinClick} className="hover:scale-110 bg-gradient-to-r from-emerald-700 to-emerald-500 text-white py-3 px-8 rounded-full mb-8 hover:bg-emerald-600 transition-transform duration-300 ease-in-out focus:outline-none focus:ring-4 focus:ring-emerald-600 focus:ring-opacity-50 shadow-lg text-lg font-semibold border-2 border-emerald-300 hover:border-emerald-400">
         Join the Club
       </button>
+
 
       <section className="mb-8 p-4 max-w-prose bg-white shadow-md rounded-lg">
         <h2 className="text-lg text-emerald-800 font-bold mb-4">How It Works</h2>
