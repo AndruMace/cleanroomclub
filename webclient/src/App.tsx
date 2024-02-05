@@ -38,7 +38,7 @@ function App() {
 
   if (session) return (
     <div className='bg-emerald-400 font-sans subpixel-antialiase min-h-screen'>
-      <nav className='flex justify-around shadow-md'>
+      <nav className='flex justify-center shadow-md'>
         <div onClick={() => setLocation('/')} className="transition ease-in-out duration-300 m-1 px-3 rounded-full hover:bg-emerald-500 hover:scale-110 shadow-md hover:shadow-lg cursor-pointer flex justify-center items-center">
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
