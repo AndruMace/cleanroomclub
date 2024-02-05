@@ -5,7 +5,7 @@ import Auth from './components/User/Auth'
 import Dashboard from './components/User/Dashboard'
 import Home from './components/Home'
 import { Session } from '@supabase/supabase-js'
-import { Link, Route, useRoute, useLocation } from 'wouter'
+import { Link, Route, useRoute } from 'wouter'
 import { navigate } from 'wouter/use-location'
 import Landing from './components/Landing'
 import Community from './components/Community'
@@ -24,7 +24,6 @@ function NavLink({href, children}: {href: string, children: any}) {
 
 function App() {
   const [session, setSession] = useState<Session | null>(null)
-  const [_location, setLocation] = useLocation()
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: { session } }) => {

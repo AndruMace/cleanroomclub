@@ -1,4 +1,7 @@
+import useLocation from 'wouter/use-location';
+
 export default function LandingPage({loggedin}: {loggedin: boolean | undefined}) {
+  const [_location, setLocation] = useLocation()
 
   function handleJoinClick() {
     loggedin ? setLocation('/home') : setLocation('/auth')
