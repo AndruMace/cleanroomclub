@@ -54,4 +54,4 @@ export default function DayStreakTracker({streak}: {streak: number}) {
       {GOAL_DAYS.includes(streak) ? <>🎉 Congrats for hitting your streak! On to the next!</> : null}
     </div>
   );
-};
+}
