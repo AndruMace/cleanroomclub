@@ -5,22 +5,11 @@ import Auth from './components/User/Auth'
 import Dashboard from './components/User/Dashboard'
 import Home from './components/Home'
 import { Session } from '@supabase/supabase-js'
-import { Link, Route, useRoute } from 'wouter'
-import { navigate } from 'wouter/use-location'
+import {Route } from 'wouter'
 import Landing from './components/Landing'
 import Community from './components/Community'
-
-function NavLink({href, children}: {href: string, children: any}) {
-  const [isActive] = useRoute(href)
-
-  return (
-    <div className={`transition duration-300 w-full h-full text-center p-4 flex justify-center ${isActive ? 'bg-emerald-600' : 'hover:bg-emerald-500'}` } onClick={() => navigate(href)}    >
-      <Link href={href}>
-        <a className="link">{children}</a>
-      </Link>
-    </div>
-  )
-}
+import { NavLink, FooterLink } from './components/Navigation'
+import About from './components/About'
 
 function App() {
   const [session, setSession] = useState<Session | null>(null)
@@ -74,6 +63,17 @@ function App() {
       <Route path="/">
         <Landing loggedin={true}/>
       </Route>
+      <Route path="/about">
+        <About />
+      </Route>
+
+      <footer className="flex justify-center items-center shadow-inner bg-emerald-300 text-gray-900 py-2 ">
+        <div className="mx-4 text-center hover:text-white">
+          <FooterLink href="/about">
+            <a className="link">About the Developer</a>
+          </FooterLink>
+        </div>
+      </footer>
     </div>
   )
 
