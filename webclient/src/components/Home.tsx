@@ -112,34 +112,34 @@ export default function Home({session}: {session: Session}) {
 
   return (
     <>
-<div className="flex justify-center p-6">
-  <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-md content-center bg-white border-2 border-emerald-500 rounded-lg shadow-lg p-6">
-    <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-emerald-800 text-center mb-4">Create a New Post</h2>
-    <textarea
-      value={postText}
-      onChange={handleTextChange}
-      placeholder="Is your room clean?"
-      rows={1}
-      className="p-3 w-full text-sm text-gray-900 bg-emerald-50 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition ease-in-out duration-300"
-    />
-    <div className="my-4">
-    <div className="flex justify-center my-4">
-      <FileUploader handleFiles={handleImageChange} />
-    </div>
-      <div className="flex flex-wrap justify-center gap-2 mt-2">
-        {previewImages.map((imgUrl) => (
-          <img src={imgUrl} key={imgUrl} alt="Preview" className="h-auto max-w-xs rounded-md shadow" />
-        ))}
+      <div className="flex justify-center p-6">
+        <form onSubmit={handleSubmit} className="flex flex-col w-full max-w-md content-center bg-white border-2 border-emerald-500 rounded-lg shadow-lg p-6">
+          <h2 className="text-lg md:text-xl lg:text-2xl font-semibold text-emerald-800 text-center mb-4">Create a New Post</h2>
+          <textarea
+            value={postText}
+            onChange={handleTextChange}
+            placeholder="Is your room clean?"
+            rows={1}
+            className="p-3 w-full text-sm text-gray-900 bg-emerald-50 rounded-lg border border-gray-300 focus:ring-2 focus:ring-emerald-500 focus:outline-none transition ease-in-out duration-300"
+          />
+          <div className="my-4">
+          <div className="flex justify-center my-4">
+            <FileUploader handleFiles={handleImageChange} />
+          </div>
+            <div className="flex flex-wrap justify-center gap-2 mt-2">
+              {previewImages.map((imgUrl) => (
+                <img src={imgUrl} key={imgUrl} alt="Preview" className="h-auto max-w-xs rounded-md shadow" />
+              ))}
+            </div>
+          </div>
+          <button
+            type="submit"
+            className="mt-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-lg shadow focus:outline-none focus:shadow-outline transition ease-in-out duration-300 w-full"
+          >
+            {!uploading ? 'Post' : 'Uploading...'}
+          </button>
+        </form>
       </div>
-    </div>
-    <button
-      type="submit"
-      className="mt-3 bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-lg shadow focus:outline-none focus:shadow-outline transition ease-in-out duration-300 w-full"
-    >
-      {!uploading ? 'Post' : 'Uploading...'}
-    </button>
-  </form>
-</div>
 
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-2 justify-items-center">
           {posts.map((post) => (

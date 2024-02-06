@@ -67,7 +67,7 @@ function App() {
         <About />
       </Route>
 
-      <footer className="flex justify-center items-center shadow-inner bg-emerald-300 text-gray-900 py-2 ">
+      <footer className="flex justify-center items-center shadow-inner bg-emerald-300 text-gray-900 py-2 fixed bottom-0 inset-x-0">
         <div className="mx-4 text-center hover:text-white">
           <FooterLink href="/about">
             <a className="link">About the Developer</a>
