@@ -42,7 +42,7 @@ function useImages(posts: PostRow[]) {
     async function getPostImages() {
       const pids: Array<string> = posts.map(post => post.post_id)
 
-      let imagesArr = pids.map(async (pid) => {
+      const imagesArr = pids.map(async (pid) => {
         const { data, error } = await supabase
         .from('images')
         .select('*')

@@ -32,12 +32,11 @@ function usePosts(userid: string | null, page: number): PostRow[] {
         setPosts(data);
       } catch (error) {
         console.error(error);
-      } finally {
       }
     }
 
     fetchPosts();
-  }, [page]);
+  }, [page, userid]);
 
   return posts;
 

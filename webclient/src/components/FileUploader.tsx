@@ -9,7 +9,7 @@ export const FileUploader = ({handleFiles}: {handleFiles: (files: File[]) => voi
   // when the Button component is clicked
   function handleClick (_event: any) {
     if (hiddenFileInput.current) (hiddenFileInput.current as any).click();
-  };
+  }
 
   // function handleClick (event) {
   //   hiddenFileInput.current.click();
@@ -23,7 +23,7 @@ export const FileUploader = ({handleFiles}: {handleFiles: (files: File[]) => voi
     }
 
     handleFiles([...event.target.files]);
-  };
+  }
 return (
     <>
       <button className="hover:bg-emerald-500 hover:shadow-xl bg-emerald-200 text-emerald-800 rounded-md w-2/3 p-2 mx-auto my-3 shadow-sm border-emerald-300 border tansition duration-300" onClick={handleClick} type="button">

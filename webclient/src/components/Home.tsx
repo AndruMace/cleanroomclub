@@ -24,13 +24,13 @@ export default function Home({session}: {session: Session}) {
 
   function handleTextChange(event: any) {
     setPostText(event.target.value);
-  };
+  }
 
   function clearFileInput() {
     if (fileInputRef.current) {
         fileInputRef.current.value = "";
     }
-};
+}
 
   function handleImageChange(imgFiles: File[]) {
     setImagesForUpload((prevImgFiles) => [...prevImgFiles, ...imgFiles])

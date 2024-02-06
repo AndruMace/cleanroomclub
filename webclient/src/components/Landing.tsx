@@ -52,4 +52,4 @@ export default function LandingPage({loggedin}: {loggedin: boolean | undefined})
       </section>
     </div>
   );
-};
+}
