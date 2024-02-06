@@ -1,0 +1,28 @@
+# https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: CI
+
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '*' # https://github.com/actions/setup-node#supported-version-syntax
+        cache: 'npm'
+        cache-dependency-path: webclient/package-lock.json
+
+    - run: cd webclient && npm ci
+
+    - run: cd webclient && npm run build
+
+    - run: cd webclient && npm run lint
