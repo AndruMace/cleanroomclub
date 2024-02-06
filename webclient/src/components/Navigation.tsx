@@ -14,7 +14,6 @@ export function NavLink({href, children}: {href: string, children: any}) {
 }
 
 export function FooterLink({href, children}: {href: string, children: any}) {
-  const [isActive] = useRoute(href)
 
   return (
     <div className="transition duration-300 text-center flex justify-center" onClick={() => navigate(href)}    >
