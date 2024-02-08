@@ -67,11 +67,25 @@ export default function Home({session}: {session: Session}) {
   }
 
   async function createPostRecord(user_id: string) {
+    function toLocalISOString(date: any) {
+      const off = date.getTimezoneOffset();
+      const offset = off * 60000; // convert offset to milliseconds
+      const localISOTime = (new Date(date - offset)).toISOString().slice(0, -1);
+      const sign = off > 0 ? '-' : '+';
+      const pad = (num: number) => String(num).padStart(2, '0');
+      const offsetHours = pad(Math.floor(Math.abs(off) / 60));
+      const offsetMinutes = pad(Math.abs(off) % 60);
+      return localISOTime + sign + offsetHours + ':' + offsetMinutes;
+  }
+  
+  // console.log(toLocalISOString(new Date()));
+  
+
     const post = {
       //   post_id uuid not null,
       user_id,
       text_content: postText,
-      //   title text null,
+      post_date: toLocalISOString(new Date())
     }
 
     const { data, error } = await supabase.from('posts').insert(post).select().single()
