@@ -10,6 +10,9 @@ import Landing from './components/Landing'
 import Community from './components/Community'
 import { NavLink, FooterLink } from './components/Navigation'
 import About from './components/About'
+import ReactGA from "react-ga4";
+
+ReactGA.initialize('G-80ELK6K66M'); 
 
 function App() {
   const [session, setSession] = useState<Session | null>(null)
@@ -22,6 +25,8 @@ function App() {
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session)
     })
+
+    ReactGA.send({ hitType: "pageview", page: "/" });
   }, [])
 
   if (session) return (
