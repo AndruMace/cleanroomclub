@@ -7,7 +7,7 @@ export default function About() {
         <p className="text-gray-600 text-md mb-4">
           Hello! I'm <strong>Andru</strong>, a passionate full-stack developer. Most of my professional experience is with <strong>React</strong>, <strong>TypeScript</strong>, <strong>PostgreSQL</strong>, and <strong>Python</strong>, but I'm always happy to learn something new! I'm currently job hunting, so if I sound like I'd be a good fit for your team feel free to contact me! 
           <br/><br/>
-          I designed the Clean Room Club to enhance living spaces through technology, promoting mental wellness and community engagement.
+          I created the Clean Room Club to promote mental wellness and personal accountability.
         </p>
         <div className="flex flex-col items-center justify-center space-y-4">
           <a href="https://www.linkedin.com/in/andru-mace-5964812b2/" target="_blank" rel="noopener noreferrer" className="text-emerald-700 hover:text-emerald-900 transition duration-300">Connect with me on LinkedIn</a>
